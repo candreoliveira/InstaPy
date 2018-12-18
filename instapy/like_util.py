@@ -21,9 +21,6 @@ from selenium.common.exceptions import WebDriverException
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
 
-
-
-
 def get_links_from_feed(browser, amount, num_of_search, logger):
     """Fetches random number of links from feed and returns a list of links"""
 
@@ -208,6 +205,9 @@ def get_links_for_tag(browser,
         media = [media]
 
     tag = (tag[1:] if tag[:1] == '#' else tag)
+
+    # Replace non ascci to ''
+    tag = ''.join([i if ord(i) < 128 else '' for i in tag])
 
     tag_link = "https://www.instagram.com/explore/tags/{}".format(tag)
     web_address_navigator(browser, tag_link)
