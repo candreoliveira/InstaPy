@@ -1,9 +1,9 @@
 """ Quickstart script for InstaPy usage """
 # imports
 import os
+from threading import Thread
 from instapy import InstaPy
 from instapy.util import smart_run
-import schedule
 import time
 
 
@@ -126,14 +126,24 @@ def job():
 
 
 def restart():
-    os.system("reboot")
+    while True:
+        ctime = time.strftime("%H:%M")
+        if ctime == "00:00" or ctime == "06:00" or ctime == "12:00" or ctime == "18:00":
+            print("rebooting...")
+            os.system("reboot")
+
+        print("sleeping 60...")
+        time.sleep(60)
 
 
-schedule.every().day.at("23:30").do(job)
-schedule.every().day.at("23:00").do(restart)
-schedule.every().day.at("12:30").do(job)
-schedule.every().day.at("13:00").do(restart)
+def run():
+    while True:
+        job()
+        print("sleeping 600...")
+        time.sleep(600)
 
-while True:
-    schedule.run_pending()
-    time.sleep(10)
+
+t1 = Thread(target=run)
+t2 = Thread(target=restart)
+t1.start()
+t2.start()
