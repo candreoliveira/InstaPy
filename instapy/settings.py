@@ -2,12 +2,8 @@
 import os
 from sys import platform as p_os
 
-
-
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OS_ENV = "windows" if p_os == "win32" else "osx" if p_os == "darwin" else "linux"
-
 
 
 class Settings:
@@ -51,13 +47,7 @@ class Settings:
     use_firefox = None
 
 
-
-
-
 class Storage:
     """ Globally accessible standalone storage """
     # store realtime record activity data
     record_activity = {}
-
-
-
