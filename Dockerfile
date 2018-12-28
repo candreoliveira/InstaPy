@@ -14,6 +14,11 @@ RUN apk add --update \
   # supervisor \
   xvfb \
   dbus \
+  dbus-dev \
+  glib \
+  glib-dev \
+  dbus-glib \
+  dbus-libs \
   dbus-x11 \
   # xclock \
   libxshmfence \
@@ -30,9 +35,11 @@ RUN apk add --update \
   && echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
   && apk add --update \
   firefox \
+  && pip install --upgrade pip \
   && pip install virtualenv \
   && pip install pyvirtualdisplay \
   && pip install selenium \
+  && pip install dbus-python \
   && rm -rf /var/cache/apk/*
 
 RUN mkdir /code
