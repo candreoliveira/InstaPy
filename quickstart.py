@@ -72,7 +72,7 @@ def job():
         session.set_dont_include(["candreoliveira", "hannacastro"])
 
         session.set_dont_like(["futebol", "sport", "[soccer", "[cat", "[gat", "[cachorr", "[safad"
-                               "[dog", "[crazy", "[sex", "adulto"])
+                               "[dog", "[crazy", "sex]", "adulto"])
 
         #session.set_smart_hashtags(hashtags, limit=10, sort='top', log_tags=True)
 
@@ -86,7 +86,7 @@ def job():
                                skip_no_profile_pic=True,
                                skip_business=False)
 
-        session.set_dont_unfollow_active_users(enabled=True, posts=50)
+        session.set_dont_unfollow_active_users(enabled=True, posts=5)
 
         session.set_use_meaningcloud(
             enabled=True, license_key=os.environ["MEANINGCLOUD_LIC_KEY"], polarity="P+")
@@ -98,12 +98,12 @@ def job():
                                   randomize=True)
         session.set_do_like(enabled=True, percentage=90)
 
-        session.set_do_comment(enabled=True, percentage=50)
+        session.set_do_comment(enabled=True, percentage=90)
 
         # session.set_reply_comments(
         #     replies=[u":heart: @{}", u":blue_heart: @{}", u":purple_heart: @{}"])
         session.set_comments(
-            [u":heart: @{}", u":blue_heart: @{}", u":purple_heart: @{}"])
+            [u"♥ @{}", u"♥♥♥ @{}", u"♥♥♥♥♥"])
 
         session.set_do_follow(enabled=True, percentage=80, times=2)
 
@@ -115,7 +115,7 @@ def job():
 
         # unfollow
         session.unfollow_users(amount=500, InstapyFollowed=(
-            True, "nonfollowers"), style="RANDOM", unfollow_after=12*60*60, sleep_delay=120)
+            True, "nonfollowers"), style="RANDOM", unfollow_after=12*60*60, sleep_delay=15)
 
         # likes
         session.like_by_tags(hashtags, amount=300, use_smart_hashtags=False)
