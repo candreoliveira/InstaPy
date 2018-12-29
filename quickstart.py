@@ -58,7 +58,7 @@ def job():
         """ Activity flow """
         # general settings
         session.set_quota_supervisor(enabled=True, sleep_after=["likes", "comments", "follows", "unfollows", "server_calls"], sleepyhead=True, stochastic_flow=True, notify_me=True, peak_likes=(
-            50, 500), peak_comments=(20, 100), peak_follows=(48, None), peak_unfollows=(35, 400), peak_server_calls=(2000, 15000))
+            100, 1000), peak_comments=(50, 200), peak_follows=(100, None), peak_unfollows=(100, 800), peak_server_calls=(3000, 15000))
 
         session.set_relationship_bounds(enabled=True,
                                         delimit_by_numbers=True,
@@ -111,17 +111,17 @@ def job():
         # likes por smart hashtags
         # comentarios
         session.comment_by_locations(['213163910', '213088533', '213088533', '28288090',
-                                      '429343414092222', '243676859'], amount=50, skip_top_posts=False)
+                                      '429343414092222', '243676859'], amount=150, skip_top_posts=False)
 
         # unfollow
-        session.unfollow_users(amount=300, InstapyFollowed=(
+        session.unfollow_users(amount=500, InstapyFollowed=(
             True, "nonfollowers"), style="RANDOM", unfollow_after=12*60*60, sleep_delay=120)
 
         # likes
-        session.like_by_tags(hashtags, amount=100, use_smart_hashtags=False)
+        session.like_by_tags(hashtags, amount=300, use_smart_hashtags=False)
 
         # likes por feed
-        session.like_by_feed(amount=100, randomize=True,
+        session.like_by_feed(amount=200, randomize=True,
                              unfollow=True, interact=True)
 
 
