@@ -106,7 +106,7 @@ def job():
         # session.set_reply_comments(
         #     replies=[u":heart: @{}", u":blue_heart: @{}", u":purple_heart: @{}"])
         session.set_comments(
-            [u"♥ @{}", u"♥♥♥ @{}", u"♥♥♥♥♥"])
+            [u"♥ @{}", u"♥♥♥ @{}", u"@{} ♡♡♡"])
 
         session.set_do_follow(enabled=True, percentage=80, times=2)
 
