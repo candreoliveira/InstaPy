@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: latin-1 -*-
+
 """ Quickstart script for InstaPy usage """
 # imports
 import os
