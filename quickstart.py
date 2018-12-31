@@ -97,35 +97,44 @@ def job():
         session.set_use_yandex(
             enabled=True, API_key=os.environ["YANDEX_API_KEY"], match_language=True, language_code="pt")
 
-        session.set_user_interact(amount=10, percentage=25,
+        session.set_user_interact(amount=5, percentage=100,
                                   randomize=True)
         session.set_do_like(enabled=True, percentage=90)
 
         session.set_do_comment(enabled=True, percentage=90)
 
-        # session.set_reply_comments(
-        #     replies=[u":heart: @{}", u":blue_heart: @{}", u":purple_heart: @{}"])
-        session.set_comments(
-            [u"♥ @{}", u"♥♥♥ @{}", u"@{} ♡♡♡"])
+        session.set_comments([u"♥ @{}", u"♥♥♥ @{}", u"@{} ♡♡♡"])
 
         session.set_do_follow(enabled=True, percentage=80, times=2)
 
-        # activity
-        # likes por smart hashtags
-        # comentarios
-        session.comment_by_locations(['213163910', '213088533', '213088533', '28288090',
-                                      '429343414092222', '243676859'], amount=150, skip_top_posts=False)
+        session.set_do_reply_to_comments(enabled=True, percentage=14)
+        session.set_comment_replies(
+            replies=[u"♥ @{}", u"♥♥♥ @{}", u"@{} ♡♡♡"])
 
-        # unfollow
-        session.unfollow_users(amount=500, InstapyFollowed=(
-            True, "nonfollowers"), style="RANDOM", unfollow_after=12*60*60, sleep_delay=15)
 
-        # likes
-        session.like_by_tags(hashtags, amount=300, use_smart_hashtags=False)
+# activity
+# likes por smart hashtags
+# comentarios
+session.interact_by_comments(usernames=["paisefilhosoficial", "gravidasonline", "maedeprimeiraviagemdicas",
+                                        "maeforadacaixa", "graodegente"], posts_amount=50, comments_per_post=5, reply=True, interact=True, randomize=True)
 
-        # likes por feed
-        session.like_by_feed(amount=200, randomize=True,
-                             unfollow=True, interact=True)
+
+session.comment_by_locations(['213163910', '213088533', '213088533', '28288090',
+                              '429343414092222', '243676859'], amount=25, skip_top_posts=False)
+
+# unfollow
+session.unfollow_users(amount=500, InstapyFollowed=(
+    True, "nonfollowers"), style="RANDOM", unfollow_after=6*60*60, sleep_delay=15)
+
+# likes
+session.like_by_tags(hashtags, amount=300, use_smart_hashtags=False)
+
+# likes por feed
+session.like_by_locations(['213163910', '213088533', '213088533', '28288090',
+                           '429343414092222', '243676859'], amount=200, skip_top_posts=False)
+
+session.like_by_feed(amount=100, randomize=True,
+                     unfollow=True, interact=True)
 
 
 def restart():
