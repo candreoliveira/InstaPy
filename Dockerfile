@@ -42,6 +42,9 @@ RUN apk add --update \
   && pip install dbus-python \
   && rm -rf /var/cache/apk/*
 
+ARG REPOSITORY
+ENV REPO $REPOSITORY
+
 RUN mkdir /code
 RUN mkdir /code/assets
 RUN mkdir /config
@@ -76,4 +79,4 @@ RUN pip install -r /config/requirements.txt
 
 COPY ./ /code/
 
-CMD ["/usr/bin/python", "/code/quickstart.py"]
+CMD ["/bin/sh", "-c", "/usr/bin/python /code/quickstart-$REPO.py"]

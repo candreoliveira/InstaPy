@@ -113,7 +113,10 @@ def job():
 
 
 # activity
-# likes por smart hashtags
+# unfollow
+session.unfollow_users(amount=500, InstapyFollowed=(
+    True, "nonfollowers"), style="RANDOM", unfollow_after=4*60*60, sleep_delay=5)
+
 # comentarios
 session.interact_by_comments(usernames=["paisefilhosoficial", "gravidasonline", "maedeprimeiraviagemdicas",
                                         "maeforadacaixa", "graodegente"], posts_amount=50, comments_per_post=5, reply=True, interact=True, randomize=True)
@@ -122,19 +125,9 @@ session.interact_by_comments(usernames=["paisefilhosoficial", "gravidasonline", 
 session.comment_by_locations(['213163910', '213088533', '213088533', '28288090',
                               '429343414092222', '243676859'], amount=25, skip_top_posts=False)
 
-# unfollow
-session.unfollow_users(amount=500, InstapyFollowed=(
-    True, "nonfollowers"), style="RANDOM", unfollow_after=4*60*60, sleep_delay=15)
-
-# likes
-session.like_by_tags(hashtags, amount=300, use_smart_hashtags=False)
-
 # likes por feed
 session.like_by_locations(['213163910', '213088533', '213088533', '28288090',
                            '429343414092222', '243676859'], amount=200, skip_top_posts=False)
-
-session.like_by_feed(amount=100, randomize=True,
-                     unfollow=True, interact=True)
 
 
 def restart():
