@@ -66,7 +66,7 @@ def job():
         session.set_relationship_bounds(enabled=True,
                                         delimit_by_numbers=True,
                                         potency_ratio=None,
-                                        max_followers=100000,
+                                        max_followers=10000000,
                                         min_followers=49,
                                         min_following=99,
                                         max_following=5000,
