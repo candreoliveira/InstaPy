@@ -111,23 +111,21 @@ def job():
         session.set_comment_replies(
             replies=[u"♥ @{}", u"♥♥♥ @{}", u"@{} ♡♡♡"])
 
+        # activity
+        # unfollow
+        session.unfollow_users(amount=500, InstapyFollowed=(
+            True, "nonfollowers"), style="RANDOM", unfollow_after=4*60*60, sleep_delay=5)
 
-# activity
-# unfollow
-session.unfollow_users(amount=500, InstapyFollowed=(
-    True, "nonfollowers"), style="RANDOM", unfollow_after=4*60*60, sleep_delay=5)
+        # comentarios
+        session.interact_by_comments(usernames=["paisefilhosoficial", "gravidasonline", "maedeprimeiraviagemdicas",
+                                                "maeforadacaixa", "graodegente"], posts_amount=50, comments_per_post=5, reply=True, interact=True, randomize=True)
 
-# comentarios
-session.interact_by_comments(usernames=["paisefilhosoficial", "gravidasonline", "maedeprimeiraviagemdicas",
-                                        "maeforadacaixa", "graodegente"], posts_amount=50, comments_per_post=5, reply=True, interact=True, randomize=True)
+        session.comment_by_locations(['213163910', '213088533', '213088533', '28288090',
+                                      '429343414092222', '243676859'], amount=25, skip_top_posts=False)
 
-
-session.comment_by_locations(['213163910', '213088533', '213088533', '28288090',
-                              '429343414092222', '243676859'], amount=25, skip_top_posts=False)
-
-# likes por feed
-session.like_by_locations(['213163910', '213088533', '213088533', '28288090',
-                           '429343414092222', '243676859'], amount=200, skip_top_posts=False)
+        # likes por feed
+        session.like_by_locations(['213163910', '213088533', '213088533', '28288090',
+                                   '429343414092222', '243676859'], amount=200, skip_top_posts=False)
 
 
 def restart():
