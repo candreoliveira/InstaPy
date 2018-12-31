@@ -3,6 +3,8 @@
 
 """ Quickstart script for InstaPy usage """
 # imports
+import sys
+import signal
 import os
 from threading import Thread
 from instapy import InstaPy
@@ -111,30 +113,25 @@ def job():
         session.set_comment_replies(
             replies=[u"♥ @{}", u"♥♥♥ @{}", u"@{} ♡♡♡"])
 
+        session.interact_by_comments(usernames=["paisefilhosoficial", "gravidasonline", "maedeprimeiraviagemdicas",
+                                                "maeforadacaixa", "graodegente"], posts_amount=50, comments_per_post=5, reply=True, interact=True, randomize=True)
 
-# activity
-# likes por smart hashtags
-# comentarios
-session.interact_by_comments(usernames=["paisefilhosoficial", "gravidasonline", "maedeprimeiraviagemdicas",
-                                        "maeforadacaixa", "graodegente"], posts_amount=50, comments_per_post=5, reply=True, interact=True, randomize=True)
+        session.comment_by_locations(['213163910', '213088533', '213088533', '28288090',
+                                      '429343414092222', '243676859'], amount=25, skip_top_posts=False)
 
+        # unfollow
+        session.unfollow_users(amount=500, InstapyFollowed=(
+            False, "nonfollowers"), style="RANDOM", unfollow_after=4*60*60, sleep_delay=15)
 
-session.comment_by_locations(['213163910', '213088533', '213088533', '28288090',
-                              '429343414092222', '243676859'], amount=25, skip_top_posts=False)
+        # likes
+        session.like_by_tags(hashtags, amount=300, use_smart_hashtags=False)
 
-# unfollow
-session.unfollow_users(amount=500, InstapyFollowed=(
-    True, "nonfollowers"), style="RANDOM", unfollow_after=4*60*60, sleep_delay=15)
+        # likes por feed
+        session.like_by_locations(['213163910', '213088533', '213088533', '28288090',
+                                   '429343414092222', '243676859'], amount=200, skip_top_posts=False)
 
-# likes
-session.like_by_tags(hashtags, amount=300, use_smart_hashtags=False)
-
-# likes por feed
-session.like_by_locations(['213163910', '213088533', '213088533', '28288090',
-                           '429343414092222', '243676859'], amount=200, skip_top_posts=False)
-
-session.like_by_feed(amount=100, randomize=True,
-                     unfollow=True, interact=True)
+        session.like_by_feed(amount=100, randomize=True,
+                             unfollow=True, interact=True)
 
 
 def restart():
@@ -155,7 +152,16 @@ def run():
         time.sleep(600)
 
 
+def signal_handler(sig, frame):
+    print('You pressed Ctrl+C!')
+    sys.exit(0)
+
+
 t1 = Thread(target=run)
 t2 = Thread(target=restart)
 t1.start()
 t2.start()
+
+signal.signal(signal.SIGINT, signal_handler)
+print('Press Ctrl+C')
+signal.pause()

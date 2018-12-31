@@ -11,7 +11,7 @@ RUN apk add --update \
   curl \
   openssh-client \
   # openjdk8-jre \
-  # supervisor \
+  supervisor \
   xvfb \
   dbus \
   dbus-dev \
@@ -40,6 +40,7 @@ RUN apk add --update \
   && pip install pyvirtualdisplay \
   && pip install selenium \
   && pip install dbus-python \
+  && pip install superlance \
   && rm -rf /var/cache/apk/*
 
 RUN mkdir /code
@@ -70,10 +71,27 @@ ENV SELENIUM_SERVER_JAR=/usr/bin/selenium-server-standalone.jar
 ENV CHROME_BIN=/usr/bin/chromium-browser
 ENV CHROME_PATH=/usr/lib/chromium
 
+RUN mkdir /etc/supervisor.d
+RUN touch /etc/supervisor.d/quickstart.ini
+RUN echo "[program:quickstart]" >> /etc/supervisor.d/quickstart.ini
+RUN echo "user=root" >> /etc/supervisor.d/quickstart.ini
+RUN echo "/usr/bin/python /code/quickstart-heroku-2.py" >> /etc/supervisor.d/quickstart.ini
+RUN echo "stdout_logfile=/var/log/quickstart.log" >> /etc/supervisor.d/quickstart.ini
+RUN echo "stderr_logfile=/var/log/quickstart-error.log" >> /etc/supervisor.d/quickstart.ini
+RUN echo "" >> /etc/supervisor.d/quickstart.ini
+RUN echo "[eventlistener:memmon]" >> /etc/supervisor.d/quickstart.ini
+RUN echo "command=memmon -p quickstart=550MB" >> /etc/supervisor.d/quickstart.ini
+RUN echo "events=TICK_60" >> /etc/supervisor.d/quickstart.ini
+
+RUN touch /code/start.sh
+RUN echo "#!/bin/sh" >> /code/start.sh
+RUN echo "/usr/bin/supervisord" >> /code/start.sh
+
 WORKDIR /code
 COPY ./requirements.txt /config/
 RUN pip install -r /config/requirements.txt
 
 COPY ./ /code/
 
-CMD ["/bin/sh", "-c", "/usr/bin/python /code/quickstart-heroku-2.py"]
+CMD ["/bin/sh", "/code/start.sh"]
+

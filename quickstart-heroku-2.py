@@ -1,16 +1,20 @@
 #!/usr/bin/python
-# -*- coding: latin-1 -*-
+# -*- coding: utf-8 -*-
 
 """ Quickstart script for InstaPy usage """
 # imports
+import sys
+import signal
 import os
-from threading import Thread
+import time
+from dotenv import load_dotenv
+import threading
 from instapy import InstaPy
 from instapy.util import smart_run
-import time
+load_dotenv(dotenv_path=os.path.join(os.getcwd(), ".env"))
 
 
-def job():
+def task():
     # login credentials
     insta_username = os.environ["INSTA_USER"]
     insta_password = os.environ["INSTA_PW"]
@@ -75,10 +79,9 @@ def job():
         session.set_dont_include(["candreoliveira", "hannacastro"])
 
         session.set_dont_like(["futebol", "sport", "[soccer", "[cat", "[gat", "[cachorr", "[safad"
-                               "[dog", "[crazy", "sex]", "adulto"])
+                               "[dog", "[crazy", "]sex", "adulto"])
 
-        #session.set_smart_hashtags(hashtags, limit=10, sort='top', log_tags=True)
-
+        # session.set_smart_hashtags(hashtags, limit=10, sort='top', log_tags=True)
         # session.set_mandatory_words(hashtags)
 
         session.set_delimit_commenting(enabled=True, min=4, comments_mandatory_words=[
@@ -91,11 +94,11 @@ def job():
 
         session.set_dont_unfollow_active_users(enabled=True, posts=5)
 
-        session.set_use_meaningcloud(
-            enabled=True, license_key=os.environ["MEANINGCLOUD_LIC_KEY"], polarity="P+")
+        # session.set_use_meaningcloud(
+        #     enabled=True, license_key=os.environ["MEANINGCLOUD_LIC_KEY"], polarity="P+")
 
-        session.set_use_yandex(
-            enabled=True, API_key=os.environ["YANDEX_API_KEY"], match_language=True, language_code="pt")
+        # session.set_use_yandex(
+        #     enabled=True, API_key=os.environ["YANDEX_API_KEY"], match_language=True, language_code="pt")
 
         session.set_user_interact(amount=5, percentage=100,
                                   randomize=True)
@@ -114,7 +117,7 @@ def job():
         # activity
         # unfollow
         session.unfollow_users(amount=500, InstapyFollowed=(
-            True, "nonfollowers"), style="RANDOM", unfollow_after=4*60*60, sleep_delay=5)
+            False, "nonfollowers"), style="RANDOM", unfollow_after=4*60*60, sleep_delay=5)
 
         # comentarios
         session.interact_by_comments(usernames=["paisefilhosoficial", "gravidasonline", "maedeprimeiraviagemdicas",
@@ -128,25 +131,5 @@ def job():
                                    '429343414092222', '243676859'], amount=200, skip_top_posts=False)
 
 
-def restart():
-    while True:
-        ctime = time.strftime("%H:%M")
-        if ctime == "00:00" or ctime == "06:00" or ctime == "12:00" or ctime == "18:00":
-            print("rebooting...")
-            os.system("reboot")
-
-        print("sleeping 60...")
-        time.sleep(60)
-
-
-def run():
-    while True:
-        job()
-        print("sleeping 600...")
-        time.sleep(600)
-
-
-t1 = Thread(target=run)
-t2 = Thread(target=restart)
-t1.start()
-t2.start()
+if __name__ == '__main__':
+    task()

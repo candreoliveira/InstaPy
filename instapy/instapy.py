@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 """OS Modules environ method to get the setup vars from the Environment"""
 # import built-in & third-party modules
 import time

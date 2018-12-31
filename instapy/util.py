@@ -1414,7 +1414,7 @@ def is_page_available(browser, logger):
 
 
 @contextmanager
-def smart_run(session):
+def smart_run(session, threaded):
     try:
         session.login()
         yield
@@ -1438,7 +1438,7 @@ def smart_run(session):
             raise
 
     finally:
-        session.end()
+        session.end(threaded)
 
 
 
@@ -1658,7 +1658,7 @@ def save_account_progress(browser, username, logger):
     """
     logger.info('Saving account progress...')
     followers, following = get_relationship_counts (browser, username, logger)
-    
+
     # save profile total posts
     posts = getUserData("graphql.user.edge_owner_to_timeline_media.count", browser)
 

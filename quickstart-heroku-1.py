@@ -1,16 +1,20 @@
 #!/usr/bin/python
-# -*- coding: latin-1 -*-
+# -*- coding: utf-8 -*-
 
 """ Quickstart script for InstaPy usage """
 # imports
+import sys
+import signal
 import os
-from threading import Thread
+import time
+from dotenv import load_dotenv
+import threading
 from instapy import InstaPy
 from instapy.util import smart_run
-import time
+load_dotenv(dotenv_path=os.path.join(os.getcwd(), ".env"))
 
 
-def job():
+def task():
     # login credentials
     insta_username = os.environ["INSTA_USER"]
     insta_password = os.environ["INSTA_PW"]
@@ -131,25 +135,5 @@ def job():
                              unfollow=True, interact=True)
 
 
-def restart():
-    while True:
-        ctime = time.strftime("%H:%M")
-        if ctime == "00:00" or ctime == "06:00" or ctime == "12:00" or ctime == "18:00":
-            print("rebooting...")
-            os.system("reboot")
-
-        print("sleeping 60...")
-        time.sleep(60)
-
-
-def run():
-    while True:
-        job()
-        print("sleeping 600...")
-        time.sleep(600)
-
-
-t1 = Thread(target=run)
-t2 = Thread(target=restart)
-t1.start()
-t2.start()
+if __name__ == '__main__':
+    task()

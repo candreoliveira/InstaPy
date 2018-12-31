@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 """
 Yandex Translate and MeaningCloud Sentiment Analysis services
 Official Documentations:
@@ -30,7 +32,6 @@ YANDEX_FAILURE_MSG = "Oh no! Yandex Translate failed :/"
 MEANINGCLOUD_FAILURE_MSG = "Oh no! MeaningCloud Sentiment Analysis failed :/"
 
 
-
 def text_analysis(text, text_type, logger):
     """
     Analyse text by sentiment analysis & language detection
@@ -48,13 +49,14 @@ def text_analysis(text, text_type, logger):
     text_is_printed = None
 
     if (not YANDEX_CONFIG or YANDEX_CONFIG["enabled"] != True or
-       (YANDEX_CONFIG["match_language"] != True and
-       (not MEANINGCLOUD_CONFIG or MEANINGCLOUD_CONFIG["enabled"] != True))):
+        (YANDEX_CONFIG["match_language"] != True and
+         (not MEANINGCLOUD_CONFIG or MEANINGCLOUD_CONFIG["enabled"] != True))):
         """ No analysis will be held """
         print('')
-        logger.info("{} text: \"{}\"".format(text_type_c, text.encode("utf-8")))
-        return None
 
+        logger.info("{} text: \"{}\"".format(
+            text_type_c, text.encode("utf-8")))
+        return None
 
     if YANDEX_CONFIG["match_language"] == True:
         """ Language detection & match will take place """
@@ -66,15 +68,18 @@ def text_analysis(text, text_type, logger):
 
         # output the text to be analysed
         print('')
-        logger.info("{} text ['{}']: \"{}\"".format(text_type_c, language_of_text, text.encode("utf-8")))
+        logger.info("{} text ['{}']: \"{}\"".format(
+            text_type_c, language_of_text, text.encode("utf-8")))
         text_is_printed = True
 
         if language_of_text and YANDEX_CONFIG["language_code"] != language_of_text:
-            logger.info("{}\t~language of the text is '{}'".format(inap_msg, language_of_text))
+            logger.info("{}\t~language of the text is '{}'".format(
+                inap_msg, language_of_text))
             return False
 
         elif not language_of_text:
-            logger.info("{}\t~language of text couldn't be detected!".format(inap_msg))
+            logger.info(
+                "{}\t~language of text couldn't be detected!".format(inap_msg))
             return False
 
     if MEANINGCLOUD_CONFIG["enabled"] == True:
@@ -89,10 +94,12 @@ def text_analysis(text, text_type, logger):
             # output the text to be analysed [if not printed above]
             if text_is_printed != True:
                 print('')
-                logger.info("{} text ['{}']: \"{}\"".format(text_type_c, language_of_text, text.encode("utf-8")))
+                logger.info("{} text ['{}']: \"{}\"".format(
+                    text_type_c, language_of_text, text.encode("utf-8")))
 
             if not language_of_text:
-                logger.info("{}\t~language of text couldn't be detected!".format(inap_msg))
+                logger.info(
+                    "{}\t~language of text couldn't be detected!".format(inap_msg))
                 return False
 
         # if language of text is not supported by MeaningCloud, translate it into english by Yandex
@@ -105,13 +112,15 @@ def text_analysis(text, text_type, logger):
         sentiment = sentiment_analysis(text, language_of_text, logger)
 
         if sentiment is None:
-            logger.info("{}\t~sentiment of text couldn't be detected!".format(inap_msg))
+            logger.info(
+                "{}\t~sentiment of text couldn't be detected!".format(inap_msg))
             return False
 
         # polarity verification
         if MEANINGCLOUD_CONFIG["score_tag"]:
             if not sentiment["score_tag"]:
-                logger.info("{}\t~polarity of text couldn't be detected!".format(inap_msg))
+                logger.info(
+                    "{}\t~polarity of text couldn't be detected!".format(inap_msg))
                 return False
 
             else:
@@ -137,7 +146,8 @@ def text_analysis(text, text_type, logger):
         # agreement verification
         if MEANINGCLOUD_CONFIG["agreement"]:
             if not sentiment["agreement"]:
-                logger.info("{}\t~expressions' agreement of text couldn't be detected!".format(inap_msg))
+                logger.info(
+                    "{}\t~expressions' agreement of text couldn't be detected!".format(inap_msg))
                 return False
 
             elif MEANINGCLOUD_CONFIG["agreement"] != sentiment["agreement"]:
@@ -148,7 +158,8 @@ def text_analysis(text, text_type, logger):
         # subjectivity verification
         if MEANINGCLOUD_CONFIG["subjectivity"]:
             if not sentiment["subjectivity"]:
-                logger.info("{}\t~subjectivity of text couldn't be detected!".format(inap_msg))
+                logger.info(
+                    "{}\t~subjectivity of text couldn't be detected!".format(inap_msg))
                 return False
 
             elif MEANINGCLOUD_CONFIG["subjectivity"] != sentiment["subjectivity"]:
@@ -159,7 +170,8 @@ def text_analysis(text, text_type, logger):
         # confidence verification
         if MEANINGCLOUD_CONFIG["confidence"]:
             if not sentiment["confidence"]:
-                logger.info("{}\t~sentiment confidence of text couldn't be detected!".format(inap_msg))
+                logger.info(
+                    "{}\t~sentiment confidence of text couldn't be detected!".format(inap_msg))
                 return False
 
             elif MEANINGCLOUD_CONFIG["confidence"] > int(sentiment["confidence"]):
@@ -167,9 +179,7 @@ def text_analysis(text, text_type, logger):
                             .format(inap_msg, sentiment["confidence"]))
                 return False
 
-
     return True
-
 
 
 def sentiment_analysis(text, language_of_text, logger):
@@ -185,13 +195,13 @@ def sentiment_analysis(text, language_of_text, logger):
     try:
         # make a request to the Sentiment Analysis API
         sentiment_response = SentimentResponse(
-                                SentimentRequest(
-                                    key=MEANINGCLOUD_CONFIG["license_key"],
-                                    lang=language_of_text,
-                                    txt=text,
-                                    txtf='plain')
-                                .sendReq()
-                            )
+            SentimentRequest(
+                key=MEANINGCLOUD_CONFIG["license_key"],
+                lang=language_of_text,
+                txt=text,
+                txtf='plain')
+            .sendReq()
+        )
         # check if there are any errors in the request
         request_state = lift_meaningcloud_request(sentiment_response)
         if request_state != True:
@@ -227,7 +237,6 @@ def sentiment_analysis(text, language_of_text, logger):
         return None
 
 
-
 def detect_language(text):
     """
     Detect the language of the specified text
@@ -237,7 +246,7 @@ def detect_language(text):
     """
 
     POST = "/api/{}/tr.json/detect?key={}&text={}".format(
-                YANDEX_API_VERSION, YANDEX_CONFIG["API_key"], text)
+        YANDEX_API_VERSION, YANDEX_CONFIG["API_key"], text)
     logger = Settings.logger
 
     try:
@@ -264,7 +273,6 @@ def detect_language(text):
         return None
 
 
-
 def yandex_supported_languages(language_code="en"):
     """
     Get the list of translation directions supported by the service
@@ -276,7 +284,7 @@ def yandex_supported_languages(language_code="en"):
     """
 
     POST = "/api/{}/tr.json/getLangs?key={}&ui={}".format(
-                YANDEX_API_VERSION, YANDEX_CONFIG["API_key"], language_code)
+        YANDEX_API_VERSION, YANDEX_CONFIG["API_key"], language_code)
     logger = Settings.logger
 
     try:
@@ -303,7 +311,6 @@ def yandex_supported_languages(language_code="en"):
         return None
 
 
-
 def translate_text(translation_direction, text_to_translate):
     """
     Translate the text to the specified language
@@ -321,8 +328,8 @@ def translate_text(translation_direction, text_to_translate):
         text_to_translate += '.'
 
     POST = "/api/{}/tr.json/translate?key={}&text={}&lang={}".format(
-                YANDEX_API_VERSION, YANDEX_CONFIG["API_key"],
-                text_to_translate, translation_direction)
+        YANDEX_API_VERSION, YANDEX_CONFIG["API_key"],
+        text_to_translate, translation_direction)
     logger = Settings.logger
 
     try:
@@ -347,7 +354,6 @@ def translate_text(translation_direction, text_to_translate):
 
     else:
         return None
-
 
 
 def lift_yandex_request(request):
@@ -394,7 +400,6 @@ def lift_yandex_request(request):
         return False
 
     return True
-
 
 
 def lift_meaningcloud_request(request):
@@ -509,8 +514,4 @@ def lift_meaningcloud_request(request):
         logger.error("{}\t~{}\n".format(MEANINGCLOUD_FAILURE_MSG,
                                         error_msg))
 
-
     return False
-
-
-
