@@ -42,9 +42,6 @@ RUN apk add --update \
   && pip install dbus-python \
   && rm -rf /var/cache/apk/*
 
-ARG REPO
-ENV REPO $REPO
-
 RUN mkdir /code
 RUN mkdir /code/assets
 RUN mkdir /config
@@ -79,4 +76,4 @@ RUN pip install -r /config/requirements.txt
 
 COPY ./ /code/
 
-CMD ["/bin/sh", "-c", "/usr/bin/python /code/quickstart-$REPO.py"]
+CMD ["/bin/sh", "-c", "/usr/bin/python /code/quickstart-heroku-1.py"]
