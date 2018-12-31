@@ -2,4 +2,4 @@ build:
   docker:
     worker: Dockerfile
   config:
-    REPOSITORY: heroku-2
+    REPOSITORY: heroku
