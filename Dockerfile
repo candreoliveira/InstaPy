@@ -42,8 +42,8 @@ RUN apk add --update \
   && pip install dbus-python \
   && rm -rf /var/cache/apk/*
 
-ARG REPOSITORY
-ENV REPO $REPOSITORY
+ARG REPO
+ENV REPO $REPO
 
 RUN mkdir /code
 RUN mkdir /code/assets
