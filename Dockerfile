@@ -76,4 +76,4 @@ RUN pip install -r /config/requirements.txt
 
 COPY ./ /code/
 
-CMD ["/bin/sh", "-c", "/usr/bin/python /code/quickstart-heroku-1.py"]
+CMD ["/bin/sh", "-c", "/usr/bin/python /code/quickstart-heroku-2.py"]
