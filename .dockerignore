@@ -6,6 +6,7 @@
 /setup.py
 /LICENSE
 /.gitignore
+/.env
 /docker-prod.yml
 /docker-compose.yml
 /.dockerignore
