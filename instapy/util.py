@@ -1414,7 +1414,7 @@ def is_page_available(browser, logger):
 
 
 @contextmanager
-def smart_run(session, threaded):
+def smart_run(session):
     try:
         session.login()
         yield
@@ -1438,7 +1438,7 @@ def smart_run(session, threaded):
             raise
 
     finally:
-        session.end(threaded)
+        session.end()
 
 
 
