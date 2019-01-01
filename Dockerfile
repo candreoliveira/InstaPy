@@ -75,7 +75,7 @@ RUN mkdir /etc/supervisor.d
 RUN touch /etc/supervisor.d/quickstart.ini
 RUN echo "[program:quickstart]" >> /etc/supervisor.d/quickstart.ini
 RUN echo "user=root" >> /etc/supervisor.d/quickstart.ini
-RUN echo "/usr/bin/python /code/quickstart-heroku-2.py" >> /etc/supervisor.d/quickstart.ini
+RUN echo "/usr/bin/python /code/quickstart-heroku-1.py" >> /etc/supervisor.d/quickstart.ini
 RUN echo "stdout_logfile=/var/log/quickstart.log" >> /etc/supervisor.d/quickstart.ini
 RUN echo "stderr_logfile=/var/log/quickstart-error.log" >> /etc/supervisor.d/quickstart.ini
 RUN echo "" >> /etc/supervisor.d/quickstart.ini
