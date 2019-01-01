@@ -1,0 +1,32 @@
+{
+  "name": "InstaPy",
+  "scripts": {},
+  "env": {
+    "INSTA_PW": {
+      "required": true
+    },
+    "INSTA_USER": {
+      "required": true
+    },
+    "INSTA_FIREFOX": {
+      "required": true
+    },
+    "INSTA_NOGUI": {
+      "required": true
+    },
+    "MEANINGCLOUD_LIC_KEY": {
+      "required": true
+    },
+    "YANDEX_API_KEY": {
+      "required": true
+    }
+  },
+  "formation": {
+    "worker": {
+      "quantity": 1
+    }
+  },
+  "addons": [],
+  "stack": "container",
+  "buildpacks": []
+}
