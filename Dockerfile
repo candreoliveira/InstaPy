@@ -77,7 +77,7 @@ ENV CHROME_PATH=/usr/lib/chromium
 RUN mkdir /etc/supervisor.d
 RUN touch /etc/supervisor.d/quickstart.ini
 RUN echo $'[program:quickstart] \n\
-command=/usr/bin/python /code/quickstart-heroku-2.py \n\
+command=/usr/bin/python /code/quickstart-heroku-1.py \n\
 redirect_stderr=true \n\
 stdout_events_enabled=true \n\
 stderr_events_enabled=true \n\
