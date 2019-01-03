@@ -219,9 +219,8 @@ def sentiment_analysis(text, language_of_text, logger):
         else:
             status_message = sentiment_response.getStatusMsg()
             print('')
-            logger.error("{}\t~there was an unexpected error :|"
-                         "\n{}\n".format(MEANINGCLOUD_FAILURE_MSG,
-                                         status_message))
+            logger.error("{}\t~there was an unexpected error :|\n{}\n".format(
+                MEANINGCLOUD_FAILURE_MSG, status_message))
             return None
 
     except (ValueError, ConnectionError) as exc:
@@ -231,9 +230,8 @@ def sentiment_analysis(text, language_of_text, logger):
             level_info = "there was a connection error :<"
 
         print('')
-        logger.exception("{}\t~{}\n{}\n"
-                         .format(MEANINGCLOUD_FAILURE_MSG,
-                                 str(exc).encode("utf-8")))
+        logger.exception("{}\t~{}\n".format(
+            MEANINGCLOUD_FAILURE_MSG, str(exc).encode("utf-8")))
         return None
 
 
@@ -246,7 +244,7 @@ def detect_language(text):
     """
 
     POST = "/api/{}/tr.json/detect?key={}&text={}".format(
-        YANDEX_API_VERSION, YANDEX_CONFIG["API_key"], text)
+        YANDEX_API_VERSION, YANDEX_CONFIG["API_key"], text.encode("utf-8"))
     logger = Settings.logger
 
     try:
