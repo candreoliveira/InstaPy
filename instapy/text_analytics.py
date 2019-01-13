@@ -198,7 +198,7 @@ def sentiment_analysis(text, language_of_text, logger):
             SentimentRequest(
                 key=MEANINGCLOUD_CONFIG["license_key"],
                 lang=language_of_text,
-                txt=text,
+                txt=text.encode("utf-8"),
                 txtf='plain')
             .sendReq()
         )
