@@ -94,12 +94,6 @@ def task():
 
         session.set_dont_unfollow_active_users(enabled=True, posts=5)
 
-        # session.set_use_meaningcloud(
-        #     enabled=True, license_key=os.environ["MEANINGCLOUD_LIC_KEY"], polarity="P+")
-
-        # session.set_use_yandex(
-        #     enabled=True, API_key=os.environ["YANDEX_API_KEY"], match_language=True, language_code="pt")
-
         session.set_user_interact(amount=5, percentage=100,
                                   randomize=True)
         session.set_do_like(enabled=True, percentage=90)
@@ -116,20 +110,15 @@ def task():
 
         # activity
         # unfollow
-        session.unfollow_users(amount=500, InstapyFollowed=(
-            False, "nonfollowers"), style="RANDOM", unfollow_after=4*60*60, sleep_delay=5)
+        session.unfollow_users(amount=500, InstapyFollowed=(False, "nonfollowers"), style="RANDOM", unfollow_after=4*60*60, sleep_delay=5)
 
         # comentarios
-        session.interact_by_comments(usernames=["paisefilhosoficial", "gravidasonline", "maedeprimeiraviagemdicas",
-                                                "maeforadacaixa", "graodegente"], posts_amount=50, comments_per_post=5, reply=True, interact=True, randomize=True)
+        session.interact_by_comments(usernames=["paisefilhosoficial", "gravidasonline", "maedeprimeiraviagemdicas", "maeforadacaixa", "graodegente"], posts_amount=50, comments_per_post=5, reply=True, interact=True, randomize=True)
 
-        session.comment_by_locations(['213163910', '213088533', '213088533', '28288090',
-                                      '429343414092222', '243676859'], amount=25, skip_top_posts=False)
+        session.comment_by_locations(['213163910', '213088533', '213088533', '28288090', '429343414092222', '243676859'], amount=25, skip_top_posts=False)
 
         # likes por feed
-        session.like_by_locations(['213163910', '213088533', '213088533', '28288090',
-                                   '429343414092222', '243676859'], amount=200, skip_top_posts=False)
-
+        session.like_by_locations(['213163910', '213088533', '213088533', '28288090', '429343414092222', '243676859'], amount=200, skip_top_posts=False)
 
 if __name__ == '__main__':
     task()

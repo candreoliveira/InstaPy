@@ -95,11 +95,19 @@ def task():
 
         session.set_dont_unfollow_active_users(enabled=True, posts=5)
 
-        session.set_use_meaningcloud(
-            enabled=True, license_key=os.environ["MEANINGCLOUD_LIC_KEY"], polarity="P+")
+        try:
+            session.set_use_meaningcloud(
+                enabled=True, license_key=os.environ["MEANINGCLOUD_LIC_KEY"], polarity="P+")
+            print("MEANINGCLOUD_LIC_KEY=" + str(os.environ["MEANINGCLOUD_LIC_KEY"]))
+        except:
+            print("NO MEANINGCLOUD_LIC_KEY.")
 
-        session.set_use_yandex(
-            enabled=True, API_key=os.environ["YANDEX_API_KEY"], match_language=True, language_code="pt")
+        try:
+            session.set_use_yandex(
+                enabled=True, API_key=os.environ["YANDEX_API_KEY"], match_language=True, language_code="pt")
+            print("YANDEX_API_KEY=" + str(os.environ["YANDEX_API_KEY"]))
+        except:
+            print("NO YANDEX_API_KEY.")
 
         session.set_user_interact(amount=5, percentage=100,
                                   randomize=True)
@@ -133,7 +141,6 @@ def task():
 
         session.like_by_feed(amount=100, randomize=True,
                              unfollow=True, interact=True)
-
 
 if __name__ == '__main__':
     task()
