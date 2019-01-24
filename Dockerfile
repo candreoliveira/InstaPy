@@ -89,7 +89,7 @@ events=PROCESS_LOG \n\
 result_handler=supervisor_stdout:event_handler \n\
 \n\
 [eventlistener:memmon] \n\
-command=memmon -p quickstart=450MB \n\
+command=memmon -p quickstart=500MB \n\
 events=TICK_60' > /etc/supervisor.d/quickstart.ini
 
 RUN touch /code/start.sh
