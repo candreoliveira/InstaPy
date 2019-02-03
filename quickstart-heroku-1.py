@@ -111,7 +111,8 @@ def task():
         try:
             session.set_use_meaningcloud(
                 enabled=True, license_key=os.environ["MEANINGCLOUD_LIC_KEY"], polarity="P+")
-            print("MEANINGCLOUD_LIC_KEY=" + str(os.environ["MEANINGCLOUD_LIC_KEY"]))
+            print("MEANINGCLOUD_LIC_KEY=" +
+                  str(os.environ["MEANINGCLOUD_LIC_KEY"]))
         except:
             print("NO MEANINGCLOUD_LIC_KEY.")
 
@@ -142,15 +143,15 @@ def task():
         session.comment_by_locations(
             locations, amount=10, skip_top_posts=False)
 
-        session.like_by_locations(locations, amount=100, skip_top_posts=False)
+        # session.like_by_locations(locations, amount=100, skip_top_posts=False)
 
         session.interact_by_comments(usernames=accounts, posts_amount=10,
                                      comments_per_post=3, reply=True, interact=True, randomize=True)
 
         session.like_by_tags(hashtags, amount=100, use_smart_hashtags=False)
 
-        session.like_by_feed(amount=15, randomize=True,
-                             unfollow=True, interact=False)
+        # session.like_by_feed(amount=15, randomize=True,
+        #                      unfollow=True, interact=False)
 
         session.unfollow_users(amount=1000, nonFollowers=True,
                                style="RANDOM", unfollow_after=48*60*60, sleep_delay=180)

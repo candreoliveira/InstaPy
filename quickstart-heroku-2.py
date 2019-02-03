@@ -63,6 +63,7 @@ def task():
                     "maternidade", "enxoval", "gravida", "vidademae", "maternidadereal", "maedeprimeiraviagem", "maecoruja", "enxovaldebebe", "crianca", "gestante", "pregnant", "gravidez", "amordemae", "maedeprincesa", "filhos", "maedemenino", "babyboy", "maedemenina"]
         accounts = ["paisefilhosoficial", "gravidasonline", "maedeprimeiraviagemdicas",
                     "maeforadacaixa", "graodegente"]
+        accounts.reverse()
         comments = [u"♥ @{}", u"♥♥♥ @{}", u"♡♡♡ @{}"]
         locations = ['213163910', '213088533', '213088533', '28288090',
                      '429343414092222', '243676859']
@@ -111,7 +112,8 @@ def task():
         try:
             session.set_use_meaningcloud(
                 enabled=True, license_key=os.environ["MEANINGCLOUD_LIC_KEY"], polarity="P+")
-            print("MEANINGCLOUD_LIC_KEY=" + str(os.environ["MEANINGCLOUD_LIC_KEY"]))
+            print("MEANINGCLOUD_LIC_KEY=" +
+                  str(os.environ["MEANINGCLOUD_LIC_KEY"]))
         except:
             print("NO MEANINGCLOUD_LIC_KEY.")
 
@@ -142,10 +144,10 @@ def task():
         session.unfollow_users(amount=1000, nonFollowers=True,
                                style="RANDOM", unfollow_after=48*60*60, sleep_delay=180)
 
-        session.like_by_feed(amount=15, randomize=True,
-                             unfollow=True, interact=False)
+        # session.like_by_feed(amount=15, randomize=True,
+        #                      unfollow=True, interact=False)
 
-        session.like_by_tags(hashtags, amount=100, use_smart_hashtags=False)
+        # session.like_by_tags(hashtags, amount=100, use_smart_hashtags=False)
 
         session.interact_by_comments(usernames=accounts, posts_amount=10,
                                      comments_per_post=3, reply=True, interact=True, randomize=True)
