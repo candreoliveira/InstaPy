@@ -56,79 +56,96 @@ def task():
                       nogui=nogui)
 
     with smart_run(session):
-        # mandatory_words = ["familia", "baby", "babylove", "newborn", "bebe", "meubebe", "mamae", "papai", "mae", "pai", "daddy", "dad", "mommy", "mom", "babytips", "children", "instababy", "instababies", "cutebaby", "bebelindo", "filho", "filha",
-        #                    "maternidade", "enxoval", "gravida", "vidademae", "maternidadereal", "maedeprimeiraviagem", "maecoruja", "enxovaldebebe", "crianca", "gestante", "pregnant", "gravidez", "amordemae", "maedeprincesa", "filhos", "maedemenino", "babyboy", "maedemenina"]
+        # hashtags = ["maedeprimeiraviagem", "maecoruja", "enxovaldebebe", "gravidez", "bebe",
+        #             "gestante", "amordemae", "maedeprincesa", "maedemenino", "maedemenina"]
 
-        hashtags = ["maedeprimeiraviagem", "maecoruja", "enxovaldebebe",
-                    "gestante", "amordemae", "maedeprincesa", "maedemenino", "maedemenina"]
+        hashtags = ["familia", "baby", "babylove", "newborn", "bebe", "meubebe", "mamae", "papai", "mae", "pai", "daddy", "dad", "mommy", "mom", "babytips", "children", "instababy", "instababies", "cutebaby", "bebelindo", "filho", "filha",
+                    "maternidade", "enxoval", "gravida", "vidademae", "maternidadereal", "maedeprimeiraviagem", "maecoruja", "enxovaldebebe", "crianca", "gestante", "pregnant", "gravidez", "amordemae", "maedeprincesa", "filhos", "maedemenino", "babyboy", "maedemenina"]
+        accounts = ["paisefilhosoficial", "gravidasonline", "maedeprimeiraviagemdicas",
+                    "maeforadacaixa", "graodegente"]
+        comments = [u"♥ @{}", u"♥♥♥ @{}", u"♡♡♡ @{}"]
+        locations = ['213163910', '213088533', '213088533', '28288090',
+                     '429343414092222', '243676859']
 
         """ Activity flow """
         # general settings
-        session.set_quota_supervisor(enabled=True, sleep_after=["likes", "comments", "follows", "unfollows", "server_calls"], sleepyhead=True, stochastic_flow=True, notify_me=True, peak_likes=(
-            100, 1000), peak_comments=(50, 200), peak_follows=(100, None), peak_unfollows=(100, 800), peak_server_calls=(3000, 15000))
+        # peak_server_calls = (3000, 10000)
+        session.set_quota_supervisor(enabled=True,
+                                     sleep_after=[
+                                         "likes_d", "comments_d", "follows_d", "unfollows_d", "server_calls_d"],
+                                     sleepyhead=True,
+                                     stochastic_flow=True,
+                                     notify_me=True,
+                                     peak_likes=(45, 1000),
+                                     peak_comments=(10, 200),
+                                     peak_follows=(80, 1000),
+                                     peak_unfollows=(80, 1000))
 
         session.set_relationship_bounds(enabled=True,
                                         delimit_by_numbers=True,
-                                        potency_ratio=None,
-                                        max_followers=10000000,
-                                        min_followers=49,
-                                        min_following=99,
+                                        potency_ratio=1.0,
+                                        max_followers=1000000,
+                                        min_followers=50,
+                                        min_following=50,
                                         max_following=5000,
                                         min_posts=10)
 
         session.set_dont_include(["candreoliveira", "hannacastro"])
 
-        session.set_dont_like(["futebol", "sport", "[soccer", "[cat", "[gat", "[cachorr", "[safad"
+        session.set_dont_like(["futebol", "sport", "soccer", "#cat", "[gat", "[cachorr", "[safad"
                                "[dog", "[crazy", "]sex", "adulto"])
 
         # session.set_smart_hashtags(hashtags, limit=10, sort='top', log_tags=True)
         # session.set_mandatory_words(hashtags)
 
-        session.set_delimit_commenting(enabled=True, min=4, comments_mandatory_words=[
-            'maecoruja', 'maedemenino', 'maedeprincesa', 'maedemenina', 'gravida', 'gravidez', 'gravidez', 'newborn', 'babyboy', 'instababy', 'pregnant'])
+        # session.set_delimit_commenting(
+        #     enabled=True, min=1, comments_mandatory_words=hashtags)
 
-        session.set_skip_users(skip_private=False,
-                               private_percentage=80,
-                               skip_no_profile_pic=True,
-                               skip_business=False)
+        # session.set_skip_users(skip_private=False,
+        #                        private_percentage=80,
+        #                        skip_no_profile_pic=True,
+        #                        skip_business=False)
 
-        session.set_dont_unfollow_active_users(enabled=True, posts=5)
+        # session.set_dont_unfollow_active_users(enabled=True, posts=5)
 
         # session.set_use_meaningcloud(
-        #     enabled=True, license_key=os.environ["MEANINGCLOUD_LIC_KEY"], polarity="P+")
+        #     enabled=False, license_key=os.environ["MEANINGCLOUD_LIC_KEY"], polarity="P+")
 
         # session.set_use_yandex(
-        #     enabled=True, API_key=os.environ["YANDEX_API_KEY"], match_language=True, language_code="pt")
+        #     enabled=False, API_key=os.environ["YANDEX_API_KEY"], match_language=True, language_code="pt")
 
-        session.set_user_interact(amount=5, percentage=100,
-                                  randomize=True)
-        session.set_do_like(enabled=True, percentage=90)
+        session.set_user_interact(
+            amount=3, percentage=50, randomize=True, media='Photo')
+
+        session.follow_commenters(accounts, amount=100,
+                                  daysold=365, max_pic=100, sleep_delay=600, interact=True)
+
+        session.set_do_like(enabled=True, percentage=30)
+
+        session.set_do_follow(enabled=True, percentage=60)
 
         session.set_do_comment(enabled=True, percentage=90)
+        session.set_comments(comments)
 
-        session.set_comments([u"♥ @{}", u"♥♥♥ @{}", u"@{} ♡♡♡"])
-
-        session.set_do_follow(enabled=True, percentage=80, times=2)
-
-        session.set_do_reply_to_comments(enabled=True, percentage=14)
-        session.set_comment_replies(
-            replies=[u"♥ @{}", u"♥♥♥ @{}", u"@{} ♡♡♡"])
+        session.set_do_reply_to_comments(enabled=True, percentage=80)
+        session.set_comment_replies(replies=comments)
 
         # activity
-        # unfollow
-        session.unfollow_users(amount=500, InstapyFollowed=(
-            False, "nonfollowers"), style="RANDOM", unfollow_after=4*60*60, sleep_delay=5)
+        session.unfollow_users(amount=1000, nonFollowers=True,
+                               style="RANDOM", unfollow_after=48*60*60, sleep_delay=180)
 
-        # comentarios
-        session.interact_by_comments(usernames=["paisefilhosoficial", "gravidasonline", "maedeprimeiraviagemdicas",
-                                                "maeforadacaixa", "graodegente"], posts_amount=50, comments_per_post=5, reply=True, interact=True, randomize=True)
+        session.like_by_feed(amount=15, randomize=True,
+                             unfollow=True, interact=False)
 
-        session.comment_by_locations(['213163910', '213088533', '213088533', '28288090',
-                                      '429343414092222', '243676859'], amount=25, skip_top_posts=False)
+        session.like_by_tags(hashtags, amount=100, use_smart_hashtags=False)
 
-        # likes por feed
-        session.like_by_locations(['213163910', '213088533', '213088533', '28288090',
-                                   '429343414092222', '243676859'], amount=200, skip_top_posts=False)
+        session.interact_by_comments(usernames=accounts, posts_amount=10,
+                                     comments_per_post=3, reply=True, interact=True, randomize=True)
+
+        session.like_by_locations(locations, amount=100, skip_top_posts=False)
+
+        session.comment_by_locations(
+            locations, amount=10, skip_top_posts=False)
 
 
 if __name__ == '__main__':
